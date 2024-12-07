@@ -1,0 +1,47 @@
+# Node.js dependencies
+/node_modules/
+
+# Vite build output
+/dist/
+
+# .env files
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and editor folders
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+/coverage/
+
+# Build folder (when building React for production)
+build/
+
+# Testing files and folders
+*.test.js
+*.test.ts
+*.test.jsx
+*.test.tsx
+*.spec.js
+*.spec.ts
+
+# Jest
+jest.config.js
+jest.setup.js
+
+# dotenv files with sensitive info
+.env.*
+
+# Vite and other config files that might contain sensitive data
+.vite/
