@@ -1,4 +1,11 @@
 .header {
     background-color: #333;
     min-height: 100px;
+    width: 100vw;
+    display: flex;
+    top: 0px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    row-gap: 20px;
+    column-gap: 10px;
 }
