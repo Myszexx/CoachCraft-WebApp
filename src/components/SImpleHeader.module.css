@@ -1,0 +1,9 @@
+.container{
+    background-color: #161616;
+    height: 100px;
+    justify-content: center;
+    align-content: center;
+    margin-left: 10px;
+    display: inline-block;
+    width: 100vw;
+}

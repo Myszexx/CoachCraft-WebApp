@@ -45,3 +45,6 @@ jest.setup.js
 
 # Vite and other config files that might contain sensitive data
 .vite/
+
+
+!/.gitignore

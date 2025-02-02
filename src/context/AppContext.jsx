@@ -6,12 +6,16 @@ const AppContext = createContext();
 
 export function AppProvider(props) {
     const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState(null);
     // const [clientId, setClientId] = useState(null);
     const [loginType, setLoginType] = useState(null);
     // const [teams, setTeams] = useState([]);
+    const [refreshToken, setRefreshToken] = useState(null);
+    const [accessToken, setAccessToken] = useState(null);
 
     const login = (username) => {
         setUser(() => {return username});
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         useLogin(username);
     };
 
@@ -19,7 +23,7 @@ export function AppProvider(props) {
         setUser(null);
     };
     return (
-        <AppContext.Provider value={{ user, setUser, login, logout, loginType, setLoginType }}>
+        <AppContext.Provider value={{ user, setUser,userId, setUserId, login, logout, loginType, setLoginType, refreshToken, setRefreshToken, accessToken, setAccessToken }}>
             {props.children}
         </AppContext.Provider>
     );

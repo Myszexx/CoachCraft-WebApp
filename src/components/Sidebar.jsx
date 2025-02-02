@@ -3,19 +3,18 @@ import {MenuButton} from "./Common/MenuButton.jsx";
 import {useAppContext} from "../context/AppContext.jsx";
 
 export function Sidebar(){
-    const [menusList,] = useState([
+    const [menusList,addMenu] = useState([
         {id:1, name:"Home", href:"/"},
         {id:2, name:"Teams", href:"/team/"},
         {id:3, name:"Profile", href:"/profile"},
     ]);
+
+
     const { user } = useAppContext();
     if (!user) {
         return <aside>Please log in to see the menu</aside>;
     }
 
-
-
-    // setMenusList(menusList => [...menusList, menusList]);
 
     return (
         <aside>

@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 import {useAppContext} from "../context/AppContext.jsx";
 
 export function ProtectedRoute({
-                                   redirectPath = '/',
+                                   redirectPath = '/register/',
                                    children,
                                }) {
-    const user = useAppContext({user})
+    const {user} = useAppContext()
     if (!user) {
         alert("You are not logged in!");
         return <Navigate to={redirectPath} replace/>;
@@ -19,5 +19,5 @@ export function ProtectedRoute({
 
 ProtectedRoute.propTypes = {
     redirectPath: PropTypes.string,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
 }

@@ -1,0 +1,9 @@
+.main{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*align-content: flex-start;*/
+    max-height: 80vh;
+}
