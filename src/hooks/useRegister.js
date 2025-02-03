@@ -1,11 +1,13 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import config from "../../config.api.json";
 import {redirect} from "react-router-dom";
 import {useAppContext} from "../context/AppContext.jsx";
+import {useJWT} from "./useJWT.js";
 
 export function useRegister() {
     // const [isLoading, setIsLoading] = useState(false);
-    const { setRefreshToken, setAccessToken, setUser, setUserId } = useAppContext();
+    const { setUser, setUserId } = useAppContext();
+    const { setAccessToken, setRefreshToken } = useJWT();
     const [isSuccessful, setIsSuccessful] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 

@@ -47,4 +47,4 @@ jest.setup.js
 .vite/
 
 
-!/.gitignore
+config.api.json
