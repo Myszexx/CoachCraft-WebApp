@@ -1,0 +1,12 @@
+.menuButton {
+    max-width: 50px;
+    margin: 10px 20px 10px 0;
+}
+.menuButton img {
+    height: auto;
+    max-width: 50px;
+}
+
+.menuButton img:hover {
+    cursor: pointer;
+}

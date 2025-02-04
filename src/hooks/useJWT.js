@@ -4,34 +4,35 @@ import {useAppContext} from "../context/AppContext.jsx";
 
 
 export function useJWT() {
-    const [ accessToken, setAccessToken] = useAppContext();
-
-    const [refreshToken, setRefreshToken] = useState(() => {
+    const { acsToken, setAcsToken} = useAppContext();
+    const [rfrToken, setRfrToken] = useState(() => {
         return localStorage.getItem("jwtRefreshToken");
     });
 
-    const saveRefresh = (newToken) => {
-        setRefreshToken(newToken);
+    const setRefreshToken = (newToken) => {
+        setRfrToken(newToken);
         localStorage.setItem("jwtRefreshToken", newToken);
     };
 
+    const setAccessToken = (newToken) => {
+        setAcsToken(newToken);
+    };
+
     const removeTokens = () => {
-        setAccessToken(null);
-        setRefreshToken(null);
-        localStorage.removeItem("jwtRefreshToken");
+        setAcsToken(null);
     };
 
     const getAccess = () => {
-        return accessToken;
+        return acsToken;
     };
 
     const refreshAccess = () => {
-        fetch(config.api+"/refresh", {
+        fetch(config.api+"refresh", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({refreshToken}),
+            body: JSON.stringify({rfrToken}),
         })
             .then((res) => {
                 if (res.ok) {
@@ -40,7 +41,7 @@ export function useJWT() {
                 throw new Error("Failed to refresh token");
             })
             .then((data) => {
-                setAccessToken(data.accessToken);
+                setAcsToken(data.accessToken);
             })
             .catch((err) => {
                 console.error(err);
@@ -48,5 +49,5 @@ export function useJWT() {
             });
     }
 
-    return {accessToken, saveRefresh, removeTokens, getAccess, refreshAccess};
+    return {acsToken, setRefreshToken,setAccessToken, removeTokens, getAccess, refreshAccess};
 }

@@ -1,26 +1,21 @@
-import {Header} from "../components/Header.jsx";
-import {Sidebar} from "../components/Sidebar.jsx";
+import {Header} from "../components/Dashboard/Header.jsx";
+import {Sidebar} from "../components/Dashboard/Sidebar.jsx";
 import {Route, Routes} from "react-router-dom";
-import {Home} from "./Home.jsx";
-import {ProtectedRoute} from "../components/ProtectedRoute.jsx";
 import {Profile} from "./Profile.jsx";
 import {Team} from "./Team.jsx";
+import styles from './Dashboard.module.css';
 
 export function Dashboard() {
     return (
         <>
-            <Header />
-            <div className="app-layout">
+
+            <div className={styles.app_layout}>
                 <Sidebar />
                 <main>
+                    <Header />
                     <Routes>
-                        <Route path="/" element={<Home />} />
-                        {/*<Route path="/team/:id" element={<Team />} />*/}
-                        <Route element={<ProtectedRoute />}>
-                            <Route path="/profile" element={<Profile />} />
-                            <Route path={"/team/:id"} element={<Team/>} />
-                        </Route>
-
+                        <Route path="/profile" element={<Profile />} />
+                        <Route path="/team/:id" element={<Team />} />
                     </Routes>
                 </main>
             </div>

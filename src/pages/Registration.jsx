@@ -5,15 +5,13 @@ import {AdPanel} from "../components/Registration/AdPanel.jsx";
 import {useState} from "react";
 import {SimpleHeader} from "../components/SimpleHeader.jsx";
 import {RegistrationForm} from "../components/Registration/RegistrationForm.jsx";
-import {useLogin} from "../hooks/useLogin.js";
-import {useRegister} from "../hooks/useRegister.js";
 import styles from "./Registration.module.css";
 
 export function Registration({
                                  redirectPath = '/dashboard',
                              }) {
     const { user } = useAppContext();
-    const [isRegistration,setIsRegistration]  = useState(true);
+
 
 
     if (user) {
@@ -24,7 +22,7 @@ export function Registration({
         <SimpleHeader/>
         <div className={styles.main}>
             <AdPanel/>
-            <RegistrationForm registration={isRegistration} onSubmit={isRegistration ? useLogin : useRegister} changeState={setIsRegistration}/>
+            <RegistrationForm/>
         </div>
         </>
     );

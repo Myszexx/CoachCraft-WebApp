@@ -16,9 +16,13 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/register" element={<Registration />}/>
-                    <Route element={<ProtectedRoute/>}>
-                        <Route path="dashboard" element={<Dashboard />}/>
-                    </Route>
+                    <Route path='/dashboard/*'
+                           element= {
+                               <ProtectedRoute>
+                                   <Dashboard/>
+                                   </ProtectedRoute>
+                                   }
+                                   />
                 </Routes>
             </Router>
         </AppProvider>

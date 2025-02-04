@@ -1,28 +1,32 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useContext } from 'react';
-import {useLogin} from "../hooks/useLogin.js";
 
 const AppContext = createContext();
 
 export function AppProvider(props) {
-    const [user, setUser] = useState(null);
-    const [userId, setUserId] = useState(null);
-    // const [clientId, setClientId] = useState(null);
+    const [user, setUser] = useState(
+        localStorage.getItem("user") ? localStorage.getItem("user") : null
+    );
+    const [userId, setUserId] = useState(
+        localStorage.getItem("userId") ? localStorage.getItem("userId") : null
+    );
+
     const [loginType, setLoginType] = useState(null);
-    // const [teams, setTeams] = useState([]);
-    const [accessToken, setAccessToken] = useState(null);
 
-    const login = (username) => {
-        setUser(() => {return username});
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useLogin(username);
-    };
+    const [acsToken, setAcsToken] = useState(null);
 
-    const logout = () => {
-        setUser(null);
-    };
+    const setUserState = (newUser) => {
+        setUser(newUser);
+        localStorage.setItem("user", newUser);
+    }
+
+    const setUserIdState = (newUserId) => {
+        setUserId(newUserId);
+        localStorage.setItem("userId", newUserId);
+    }
+
     return (
-        <AppContext.Provider value={{ user, setUser,userId, setUserId, login, logout, loginType, setLoginType, accessToken, setAccessToken }}>
+        <AppContext.Provider value={{ user, setUserState,userId, setUserIdState, loginType, setLoginType, acsToken, setAcsToken }}>
             {props.children}
         </AppContext.Provider>
     );

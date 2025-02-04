@@ -1,6 +1,6 @@
 import styles from './Header.module.css';
-import {LoginWindow} from "./LoginWindow.jsx";
-import {useAppContext } from "../context/AppContext.jsx";
+import {LoginWindow} from "../LoginWindow.jsx";
+import {useAppContext } from "../../context/AppContext.jsx";
 
 export function Header(){
     const {login, logout} = useAppContext();
@@ -14,7 +14,6 @@ export function Header(){
         event.preventDefault();
         console.log("User registered!");
         login(login);
-        // Symulacja rejestracji użytkownika
     };
 
     const handleLogout = () =>{

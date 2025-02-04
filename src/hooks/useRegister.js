@@ -5,7 +5,6 @@ import {useAppContext} from "../context/AppContext.jsx";
 import {useJWT} from "./useJWT.js";
 
 export function useRegister() {
-    // const [isLoading, setIsLoading] = useState(false);
     const { setUser, setUserId } = useAppContext();
     const { setAccessToken, setRefreshToken } = useJWT();
     const [isSuccessful, setIsSuccessful] = useState(false);
