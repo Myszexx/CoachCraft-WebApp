@@ -6,8 +6,7 @@
 }
 
 .app_layout main{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-
+    margin-right: 30px;
+    padding: 1rem;
+    height: calc(100vh - 170px);
 }

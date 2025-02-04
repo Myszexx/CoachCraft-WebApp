@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import {Profile} from "./Profile.jsx";
 import {Team} from "./Team.jsx";
 import styles from './Dashboard.module.css';
+import {MainBoard} from "./dashboard/MainBoard.jsx";
 
 export function Dashboard() {
     return (
@@ -11,13 +12,16 @@ export function Dashboard() {
 
             <div className={styles.app_layout}>
                 <Sidebar />
-                <main>
+                <div className={styles.main_content}>
                     <Header />
-                    <Routes>
-                        <Route path="/profile" element={<Profile />} />
-                        <Route path="/team/:id" element={<Team />} />
-                    </Routes>
-                </main>
+                    <main>
+                        <Routes>
+                            <Route path="/" element={<MainBoard/>} />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route path="/team/:id" element={<Team />} />
+                        </Routes>
+                    </main>
+                </div>
             </div>
         </>
     );

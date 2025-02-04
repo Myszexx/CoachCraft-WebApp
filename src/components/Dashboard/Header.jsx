@@ -1,29 +1,18 @@
 import styles from './Header.module.css';
-import {LoginWindow} from "../LoginWindow.jsx";
 import {useAppContext } from "../../context/AppContext.jsx";
+import {ProfileWindow} from "./ProfileWindow.jsx";
 
 export function Header(){
-    const {login, logout} = useAppContext();
-    const handleLogin = () =>{
-        event.preventDefault();
-        login(login);
+    const { dashboardTitle} = useAppContext();
 
-    }
 
-    const handleRegister = () => {
-        event.preventDefault();
-        console.log("User registered!");
-        login(login);
-    };
-
-    const handleLogout = () =>{
-        logout();
-    }
 
     return (
        <header className={styles.header}>
-            <h1>Witaj przyjacielu</h1>
-            <LoginWindow onLogin={handleLogin} onRegister={handleRegister} onLogout={handleLogout}/>
+            <h1 className={styles.dashboardTitle}>{dashboardTitle}</h1>
+            <div className={styles.profileWindow}>
+                <ProfileWindow/>
+            </div>
        </header>
     )
 }

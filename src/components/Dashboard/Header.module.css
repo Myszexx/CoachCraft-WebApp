@@ -1,11 +1,25 @@
 .header {
-    background-color: #333;
-    min-height: 100px;
-    width: 100vw;
-    display: flex;
+    /*background-color: #333;*/
+    height: 100px;
+    width: 95vw;
     top: 0;
-    justify-content: flex-start;
-    align-items: flex-start;
     row-gap: 20px;
     column-gap: 10px;
+    margin-top: 30px;
+}
+
+.dashboardTitle {
+    color: white;
+    font-size: 2rem;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    float: left;
+    clear: right;
+}
+
+.profileWindow {
+    float: right;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 20px;
 }

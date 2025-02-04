@@ -1,0 +1,10 @@
+
+.profileWindow img {
+    height: 100px;
+    width: auto;
+
+}
+
+.profileWindow img:hover {
+    cursor: pointer;
+}

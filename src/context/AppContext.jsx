@@ -10,6 +10,7 @@ export function AppProvider(props) {
     const [userId, setUserId] = useState(
         localStorage.getItem("userId") ? localStorage.getItem("userId") : null
     );
+    const [dashboardTitle, setDashboardTitle] = useState("Dashboard");
 
     const [loginType, setLoginType] = useState(null);
 
@@ -26,7 +27,15 @@ export function AppProvider(props) {
     }
 
     return (
-        <AppContext.Provider value={{ user, setUserState,userId, setUserIdState, loginType, setLoginType, acsToken, setAcsToken }}>
+        <AppContext.Provider value={
+            {
+                user, setUserState,
+                userId, setUserIdState,
+                loginType, setLoginType,
+                acsToken, setAcsToken,
+                dashboardTitle, setDashboardTitle
+            }
+        }>
             {props.children}
         </AppContext.Provider>
     );
