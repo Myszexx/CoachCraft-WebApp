@@ -7,7 +7,7 @@ import {useJWT} from "./useJWT.js";
 export function useRegister() {
     const { setUser, setUserId } = useAppContext();
     const { setAccessToken, setRefreshToken } = useJWT();
-    const [isSuccessful, setIsSuccessful] = useState(false);
+    // const [isSuccessful, setIsSuccessful] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const register = async (username, email, password, password2) => {

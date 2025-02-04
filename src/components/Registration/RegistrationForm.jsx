@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import styles from "./RegistrationForm.module.css";
 import {useRegister} from "../../hooks/useRegister.js";
 import {useState} from "react";
@@ -61,8 +60,3 @@ export function RegistrationForm() {
     }
 
 }
-
-RegistrationForm.propTypes = {
-
-}
-

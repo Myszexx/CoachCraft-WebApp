@@ -3,7 +3,7 @@
     min-height: 100px;
     width: 100vw;
     display: flex;
-    top: 0px;
+    top: 0;
     justify-content: flex-start;
     align-items: flex-start;
     row-gap: 20px;
