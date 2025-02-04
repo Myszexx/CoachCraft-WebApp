@@ -1,12 +1,11 @@
 import {useState} from "react";
 import config from "../../config.api.json";
+import {useAppContext} from "../context/AppContext.jsx";
 
 
 export function useJWT() {
+    const [ accessToken, setAccessToken] = useAppContext();
 
-    const [accessToken, setAccessToken] = useState(() => {
-        return localStorage.getItem("jwtAccessToken");
-    });
     const [refreshToken, setRefreshToken] = useState(() => {
         return localStorage.getItem("jwtRefreshToken");
     });
@@ -19,12 +18,11 @@ export function useJWT() {
     const removeTokens = () => {
         setAccessToken(null);
         setRefreshToken(null);
-        localStorage.removeItem("jwtAccessToken");
         localStorage.removeItem("jwtRefreshToken");
     };
 
     const getAccess = () => {
-        return localStorage.getItem("jwtAccessToken");
+        return accessToken;
     };
 
     const refreshAccess = () => {
@@ -43,7 +41,6 @@ export function useJWT() {
             })
             .then((data) => {
                 setAccessToken(data.accessToken);
-                localStorage.setItem("jwtAccessToken", data.accessToken);
             })
             .catch((err) => {
                 console.error(err);
