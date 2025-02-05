@@ -1,15 +1,13 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {Home} from './pages/Home.jsx';
-// import {Team} from './pages/Team.jsx';
-// import {Profile} from "./pages/Profile.jsx";
-// import {Header} from "./components/Header.jsx";
-// import {Sidebar} from './components/Sidebar';
 import {AppProvider} from "./context/AppContext.jsx";
 import {ProtectedRoute} from "./components/ProtectedRoute.jsx";
 import {Registration} from "./pages/Registration.jsx";
 import {Dashboard} from "./pages/Dashboard.jsx";
+import {useThemes} from "./hooks/useThemes.js";
 
 function App() {
+
     return (
         <AppProvider>
             <Router>

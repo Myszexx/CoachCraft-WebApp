@@ -4,7 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import {Profile} from "./Profile.jsx";
 import {Team} from "./Team.jsx";
 import styles from './Dashboard.module.css';
-import {MainBoard} from "./dashboard/MainBoard.jsx";
+import {MainBoard} from "../components/Dashboard/MainBoard.jsx";
 
 export function Dashboard() {
     return (
@@ -16,9 +16,10 @@ export function Dashboard() {
                     <Header />
                     <main>
                         <Routes>
-                            <Route path="/" element={<MainBoard/>} />
+                            <Route path="/*" element={<MainBoard/>} />
                             <Route path="/profile" element={<Profile />} />
                             <Route path="/team/:id" element={<Team />} />
+
                         </Routes>
                     </main>
                 </div>

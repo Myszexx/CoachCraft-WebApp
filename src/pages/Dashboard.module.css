@@ -3,10 +3,15 @@
     grid-template-columns: 1fr 8fr;
     grid-template-rows: 1fr;
     grid-template-areas: "sidebar main";
+    height: 100%
 }
 
 .app_layout main{
     margin-right: 30px;
     padding: 1rem;
     height: calc(100vh - 170px);
+}
+
+.main_content {
+    height: 100%;
 }
