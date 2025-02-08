@@ -4,7 +4,8 @@ import {Header} from "../components/Dashboard/Header.jsx";
 import {Profile} from "../pages/Profile.jsx";
 import {Registration} from "../pages/Registration.jsx";
 import {MainBoard} from "../components/Dashboard/MainBoard.jsx";
-import {TeamMain} from "../components/Dashboard/TeamMain.jsx";
+import {TeamMain} from "../components/Dashboards/Team/TeamMain.jsx";
+import {NinetyMinPicker} from "../components/Dashboards/Team/NinetyMinPicker.jsx";
 
 const ComponentPreviews = () => {
     return (
@@ -23,6 +24,9 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/TeamMain">
                 <TeamMain/>
+            </ComponentPreview>
+            <ComponentPreview path="/NinetyMinPicker">
+                <NinetyMinPicker/>
             </ComponentPreview>
         </Previews>
     )

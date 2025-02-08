@@ -2,7 +2,6 @@ import {useEffect, useState} from "react";
 
 export function useThemes() {
     const defaultTheme = {
-        margin: "0.8rem",
         borderRadius: "20px",
         backgroundColor: "#2765a3",
 

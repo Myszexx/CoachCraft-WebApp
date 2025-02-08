@@ -4,7 +4,6 @@ import {AppProvider} from "./context/AppContext.jsx";
 import {ProtectedRoute} from "./components/ProtectedRoute.jsx";
 import {Registration} from "./pages/Registration.jsx";
 import {Dashboard} from "./pages/Dashboard.jsx";
-import {useThemes} from "./hooks/useThemes.js";
 
 function App() {
 

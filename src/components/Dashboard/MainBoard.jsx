@@ -25,7 +25,7 @@ export function MainBoard() {
         {
             id: 3,
             title: "Team Management",
-            url: "fs/team-main",
+            url: "/fs/team-main",
             content: "block3/preview",
             styles:{
                 gridArea: `1 / 1 / 3 / 3`,
@@ -58,7 +58,7 @@ export function MainBoard() {
             <div className={styles.grid}>
                 {defaultGrid.map((cardData) => {
                     return (
-                            <div style={Object.assign({},cardData.styles,themeContent)} key={cardData.id} className={styles.card} onClick={() => window.location.href = cardData.url}>
+                            <div style={Object.assign({},cardData.styles,themeContent)} key={cardData.id} className={styles.card} onClick={() => window.location.href = 'dashboard'+cardData.url}>
                                 <h3>{cardData.title}</h3>
                                 <div className={styles.cardContent}>{cardData.content}</div>
                             </div>

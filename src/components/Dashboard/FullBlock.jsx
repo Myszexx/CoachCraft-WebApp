@@ -1,7 +1,7 @@
-import styles from './TeamMain.module.css';
+import styles from '../Dashboards/Team/TeamMain.module.css';
 import {useThemes} from "../../hooks/useThemes.js";
 import {Route, Routes} from "react-router-dom";
-import {TeamMain} from "./TeamMain.jsx";
+import {TeamMain} from "../Dashboards/Team/TeamMain.jsx";
 
 export function FullBlock() {
     const {themeContent} = useThemes();

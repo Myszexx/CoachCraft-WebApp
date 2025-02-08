@@ -2,6 +2,8 @@
     width: calc(100% - 4rem);
     height: calc(100% - 4rem);
     background-color: #2765a3;
-
+    margin: 0;
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
 }
