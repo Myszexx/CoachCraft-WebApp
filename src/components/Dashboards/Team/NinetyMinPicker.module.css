@@ -1,0 +1,10 @@
+.selector {
+    border-radius: 10px;
+    border: 1px solid #E5E5E5;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    min-width: 40%;
+}
