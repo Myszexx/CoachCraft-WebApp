@@ -5,25 +5,27 @@ import {Profile} from "./Profile.jsx";
 import {Team} from "./Team.jsx";
 import styles from './Dashboard.module.css';
 import {MainBoard} from "../components/Dashboard/MainBoard.jsx";
+import {DashboardProvider} from "../context/DashboardContext.jsx";
 
 export function Dashboard() {
     return (
         <>
+            <DashboardProvider>
+                <div className={styles.app_layout}>
+                    <Sidebar />
+                    <div className={styles.main_content}>
+                        <Header />
+                        <main>
+                            <Routes>
+                                <Route path="/*" element={<MainBoard/>} />
+                                <Route path="/profile" element={<Profile />} />
+                                <Route path="/team/:id" element={<Team />} />
 
-            <div className={styles.app_layout}>
-                <Sidebar />
-                <div className={styles.main_content}>
-                    <Header />
-                    <main>
-                        <Routes>
-                            <Route path="/*" element={<MainBoard/>} />
-                            <Route path="/profile" element={<Profile />} />
-                            <Route path="/team/:id" element={<Team />} />
-
-                        </Routes>
-                    </main>
+                            </Routes>
+                        </main>
+                    </div>
                 </div>
-            </div>
+            </DashboardProvider>
         </>
     );
 }

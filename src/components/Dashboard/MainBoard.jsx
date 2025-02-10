@@ -33,8 +33,8 @@ export function MainBoard() {
         },
         {
             id: 4,
-            title: "Block 4",
-            url: "/block1",
+            title: "Players",
+            url: "/fs/players-main",
             content: "block4/preview",
             styles:{
                 gridArea: '1 / 3 / 3 / 5',

@@ -6,7 +6,7 @@ import styles from './Sidebar.module.css';
 export function Sidebar(){
     // eslint-disable-next-line no-unused-vars
     const [menusList,addMenu] = useState([
-        {id:1, name:"Home", href:"/", src:"https://cdn-icons-png.flaticon.com/512/25/25694.png"},
+        {id:1, name:"Home", href:"/dashboard", src:"https://cdn-icons-png.flaticon.com/512/25/25694.png"},
         {id:2, name:"Teams", href:"/team/", src:"https://cdn-icons-png.flaticon.com/512/25/25694.png"},
         {id:3, name:"Profile", href:"/profile", src:"https://cdn-icons-png.flaticon.com/512/25/25694.png"},
     ]);

@@ -1,0 +1,40 @@
+.browser{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    max-height: 90%;
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.row{
+    width: 100%;
+    min-height: 3em;
+    height: 3em;
+    border-radius: 5px;
+    border: 2px solid black;
+    background-color: #1a1a1a;
+}
+
+.row:hover{
+    background-color: #2a2a2a;
+    animation-duration: 0.5s;
+}
+
+.browserPage {
+    margin: auto;
+
+}
+.browserPage * {
+    margin: 10px;
+}

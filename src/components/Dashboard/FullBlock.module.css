@@ -3,5 +3,8 @@
     height: calc(100% - 4.5rem);
     background-color: #2765a3;
     margin: auto;
-    padding: 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1.5rem;
 }
+

@@ -6,6 +6,8 @@ import {Registration} from "../pages/Registration.jsx";
 import {MainBoard} from "../components/Dashboard/MainBoard.jsx";
 import {TeamMain} from "../components/Dashboards/Team/TeamMain.jsx";
 import {NinetyMinPicker} from "../components/Dashboards/Team/NinetyMinPicker.jsx";
+import {FullBlock} from "../components/Dashboard/FullBlock.jsx";
+import {PlayersMain} from "../components/Dashboards/Players/PlayersMain.jsx";
 
 const ComponentPreviews = () => {
     return (
@@ -27,6 +29,12 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/NinetyMinPicker">
                 <NinetyMinPicker/>
+            </ComponentPreview>
+            <ComponentPreview path="/FullBlock">
+                <FullBlock/>
+            </ComponentPreview>
+            <ComponentPreview path="/PlayersMain">
+                <PlayersMain/>
             </ComponentPreview>
         </Previews>
     )
