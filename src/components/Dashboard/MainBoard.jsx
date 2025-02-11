@@ -1,8 +1,9 @@
 import styles from './MainBoard.module.css';
 import {useThemes} from "../../hooks/useThemes.js";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import {FullBlock} from "./FullBlock.jsx";
 export function MainBoard() {
+    const navigate = useNavigate()
     const defaultGrid = [
         {
             id: 1,
@@ -25,7 +26,7 @@ export function MainBoard() {
         {
             id: 3,
             title: "Team Management",
-            url: "/fs/team-main",
+            url: "fs/team-main",
             content: "block3/preview",
             styles:{
                 gridArea: `1 / 1 / 3 / 3`,
@@ -34,7 +35,7 @@ export function MainBoard() {
         {
             id: 4,
             title: "Players",
-            url: "/fs/players-main",
+            url: "fs/players-main",
             content: "block4/preview",
             styles:{
                 gridArea: '1 / 3 / 3 / 5',
@@ -58,7 +59,7 @@ export function MainBoard() {
             <div className={styles.grid}>
                 {defaultGrid.map((cardData) => {
                     return (
-                            <div style={Object.assign({},cardData.styles,themeContent)} key={cardData.id} className={styles.card} onClick={() => window.location.href = 'dashboard'+cardData.url}>
+                            <div style={Object.assign({},cardData.styles,themeContent)} key={cardData.id} className={styles.card} onClick={() => navigate(cardData.url)}>
                                 <h3>{cardData.title}</h3>
                                 <div className={styles.cardContent}>{cardData.content}</div>
                             </div>

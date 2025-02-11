@@ -9,11 +9,12 @@ import styles from "./Registration.module.css";
 export function Registration({
                                  redirectPath = '/dashboard',
                              }) {
-    const { user } = useAppContext();
+    const { userId } = useAppContext();
 
 
 
-    if (user) {
+    if (userId ) {
+        alert("You are already logged in as " + userId);
         return <Navigate to={redirectPath} replace/>;
     }
     return (

@@ -1,12 +1,13 @@
 .browser{
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: 90%;
+    height: 90%;
     width: 95%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     border-radius: 15px;
+    background-color: #161616;
 
 }
 
@@ -15,6 +16,7 @@
     flex-direction: column;
     max-height: 100%;
     max-width: 100%;
+    height: 100%;
 }
 
 .row{
@@ -32,7 +34,7 @@
 }
 
 .browserPage {
-    margin: auto;
+    margin: auto auto 0 auto;
 
 }
 .browserPage * {

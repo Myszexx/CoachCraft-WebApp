@@ -1,38 +1,52 @@
 import {useState} from "react";
 import config from "../../config.api.json";
 import {useAppContext} from "../context/AppContext.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 export function useJWT() {
-    const { acsToken, setAcsToken} = useAppContext();
+    const {Navigate} = useNavigate()
+    const { acsToken, setAcsToken, setUserState, setUserIdState} = useAppContext();
     const [rfrToken, setRfrToken] = useState(() => {
         return localStorage.getItem("jwtRefreshToken");
     });
 
+    const logout = () => {
+        removeTokens();
+        setUserState(null);
+        setUserIdState(null);
+        Navigate('/register');
+    }
+
     const setRefreshToken = (newToken) => {
+        console.log("Setting refresh token to", newToken);
         setRfrToken(newToken);
         localStorage.setItem("jwtRefreshToken", newToken);
     };
 
     const setAccessToken = (newToken) => {
+        console.log("Setting access token to", newToken);
         setAcsToken(newToken);
     };
 
     const removeTokens = () => {
         setAcsToken(null);
+        setRefreshToken(null);
     };
 
     const getAccess = () => {
         return acsToken;
     };
 
-    const refreshAccess = () => {
-        fetch(config.api+"refresh", {
+    const refreshAccess = async () => {
+        fetch(config.api+"core/token/refresh/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({rfrToken}),
+            body: JSON.stringify({
+                refresh: rfrToken,
+            }),
         })
             .then((res) => {
                 if (res.ok) {
@@ -41,11 +55,16 @@ export function useJWT() {
                 throw new Error("Failed to refresh token");
             })
             .then((data) => {
-                setAcsToken(data.accessToken);
+                setAcsToken(data.access);
             })
             .catch((err) => {
+                if (err.code === 'token_not_valid'){
+                    alert("Token expired");
+                    logout();
+                }
                 console.error(err);
-                removeTokens();
+                alert("Not logged in");
+                logout();
             });
     }
 

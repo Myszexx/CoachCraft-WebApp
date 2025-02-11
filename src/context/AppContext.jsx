@@ -5,10 +5,10 @@ const AppContext = createContext();
 
 export function AppProvider(props) {
     const [user, setUser] = useState(
-        localStorage.getItem("user") ? localStorage.getItem("user") : null
+        localStorage.getItem("user") ? localStorage.getItem("user")==="null" ? null : localStorage.getItem("user") : null
     );
     const [userId, setUserId] = useState(
-        localStorage.getItem("userId") ? localStorage.getItem("userId") : null
+        localStorage.getItem("userId") ? localStorage.getItem("userId")==="null" ? null : localStorage.getItem("userId") : null
     );
     const [dashboardTitle, setDashboardTitle] = useState("Dashboard");
 

@@ -1,11 +1,12 @@
 import {useState} from "react";
 import {useJWT} from "./useJWT.js";
 import config from "../../config.api.json";
-import {redirect} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useAppContext} from "../context/AppContext.jsx";
 
 export function useLogin() {
-    const { setAccessToken, setRefreshToken} = useJWT();
+    const { setAccessToken, setRefreshToken, removeTokens} = useJWT();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const { setUserState, setUserIdState } = useAppContext();
 
@@ -24,11 +25,12 @@ export function useLogin() {
             });
             if (res.status === 200) {
                 const data = await res.json();
-                setAccessToken(data.token.rfr);
-                setRefreshToken(data.token.acc);
+                console.log(data);
+                setAccessToken(data.token.acc);
+                setRefreshToken(data.token.rfr);
                 setUserState(data.username);
                 setUserIdState(data.user_id);
-                redirect('/dashboard');
+                navigate('/dashboard');
             } else {
                 const errorText = await res.text();
                 alert("Login failed: " + errorText);
@@ -42,11 +44,10 @@ export function useLogin() {
     }
 
     const logout = () => {
-        setAccessToken(null);
-        setRefreshToken(null);
+        removeTokens();
         setUserState(null);
         setUserIdState(null);
-        redirect('/register');
+        navigate('/register');
     }
 
     return {login,logout, isLoading};
