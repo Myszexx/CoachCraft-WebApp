@@ -2,10 +2,14 @@ import {useState} from "react";
 import config from "../../config.api.json";
 import {useAppContext} from "../context/AppContext.jsx";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {jwtDecode} from "jwt-decode";
+import dayjs from "dayjs";
 
 
 export function useJWT() {
     const {Navigate} = useNavigate()
+    const baseURL = config.api;
     const { acsToken, setAcsToken, setUserState, setUserIdState} = useAppContext();
     const [rfrToken, setRfrToken] = useState(() => {
         return localStorage.getItem("jwtRefreshToken");
@@ -35,7 +39,7 @@ export function useJWT() {
     };
 
     const getAccess = () => {
-        return acsToken;
+        return acsToken.access;
     };
 
     const refreshAccess = async () => {
@@ -68,5 +72,36 @@ export function useJWT() {
             });
     }
 
-    return {acsToken, setRefreshToken,setAccessToken, removeTokens, getAccess, refreshAccess};
+    const axiosInstance = axios.create({
+        timeout: 5000,
+        baseURL,
+        headers: {
+            Authorization: `Bearer ${JSON.parse(JSON.stringify(getAccess()))}`
+        }
+    });
+    axiosInstance.interceptors.request.use(async req => {
+
+
+        if (acsToken.access && typeof acsToken.access === "string")
+        {
+
+            const user = jwtDecode(acsToken.access);
+
+            const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
+
+            if(!isExpired) return req
+        }
+
+        const response = await axios.post(`${baseURL}core/token/refresh/`, {
+            refresh: rfrToken
+        });
+        //localStorage.setItem('authTokens', JSON.stringify(response.data))
+
+        setAccessToken(response.data)
+
+        req.headers.Authorization = `Bearer ${response.data.access}`
+        return req
+    })
+
+    return {acsToken, setRefreshToken,setAccessToken, removeTokens, getAccess, refreshAccess, rfrToken, axiosInstance};
 }

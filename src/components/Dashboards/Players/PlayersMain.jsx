@@ -3,57 +3,39 @@ import {useThemes} from "../../../hooks/useThemes.js";
 import config from "../../../../config.api.json";
 import styles from "./PlayersMain.module.css";
 import {PlayerCard} from "./PlayerCard.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useJWT} from "../../../hooks/useJWT.js";
 import Spinner from "../../Common/Spinner.jsx";
+import {useAlert} from "../../../hooks/useAlert.js";
 
 export function PlayersMain() {
     const {themeContent} = useThemes();
     const [playersList, setPlayersList] = useState([]);
     const [playerId, setPlayerId] = useState(null);
+    const [page, setPage] = useState(0);
     const [isCardOpen,setIsCardOpen] = useState(false);
     const [isBrowserLoading, setIsBrowserLoading] = useState(false);
-    const {refreshAccess, getAccess} = useJWT();
+    const {axiosInstance} = useJWT();
+    const {showAlert} = useAlert();
 
     const fetchPlayers = async () => {
         setIsBrowserLoading(true);
-        let token = getAccess();
-        if (!token)
-        {
-            console.log("Refreshing access token");
-            token = await refreshAccess();
-        }
-        if (!token) {
-            console.error("No token available");
-            return;
-        }
-        fetch(config.api + "players/players", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${JSON.parse(JSON.stringify(getAccess()))}`
-            }
-        })
-            .then((response) => response.json())
-            .then(async (data) => {
-                if (data.code === "token_not_valid"){
-                    await refreshAccess();
-                }
-                else if (data.code === 401){
-                    await refreshAccess();
-                    await fetchPlayers();
+        let response = await axiosInstance.get("players/players");
+        console.log(response);
+                if (response.status === 200) {
+                    setPlayersList(response.data);
+                    console.log(response.data);
+                    setIsBrowserLoading(false);
                 }
                 else {
-                    setPlayersList(data);
-                    console.log(data);
-                    setIsBrowserLoading(false);
+                    showAlert("Players not found", "error");
                 }
-            })
-            .catch((error) => {
-                    console.error("Error fetching players: ", error);
-                    setIsBrowserLoading(false);
-            });
+
     }
+
+    useEffect(() => {
+        fetchPlayers();
+    }, [page]);
 
 
     const handlePlayerClick = (playerId) => {
