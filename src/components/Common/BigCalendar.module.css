@@ -1,0 +1,59 @@
+/* BigCalendar.module.css */
+.main {
+    overflow: hidden;
+    height: 100%;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    border: #213547 1px solid;
+}
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+    background-color: #1a1a1a;
+    width: calc(100% - 10px);
+    overflow: hidden;
+    height: 100%;
+    border-radius: 5px;
+    border: #213547 1px solid;
+    padding: 5px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    height: calc(100%/7);
+}
+
+.cell {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    border-radius: 2px;
+    margin: 1px;
+}
+
+
+.today {
+    background-color: teal;
+}
+
+.this_month {
+    background-color: #222;
+}
+
+.another_month {
+    opacity: 0.4;
+}
+
+.selected_day {
+    border: 2px dashed #646cff;;
+    color: #646cff;
+}

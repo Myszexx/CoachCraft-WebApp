@@ -8,6 +8,7 @@ import {TeamMain} from "../components/Dashboards/Team/TeamMain.jsx";
 import {NinetyMinPicker} from "../components/Dashboards/Team/NinetyMinPicker.jsx";
 import {FullBlock} from "../components/Dashboard/FullBlock.jsx";
 import {PlayersMain} from "../components/Dashboards/Players/PlayersMain.jsx";
+import {BigCalendar} from "../components/Common/BigCalendar.jsx";
 
 const ComponentPreviews = () => {
     return (
@@ -35,6 +36,12 @@ const ComponentPreviews = () => {
             </ComponentPreview>
             <ComponentPreview path="/PlayersMain">
                 <PlayersMain/>
+            </ComponentPreview>
+            <ComponentPreview path="/BigCalendarComponent">
+                <BigCalendar/>
+            </ComponentPreview>
+            <ComponentPreview path="/ComponentPreviews">
+                <ComponentPreviews/>
             </ComponentPreview>
         </Previews>
     )

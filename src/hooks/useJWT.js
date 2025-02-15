@@ -39,7 +39,7 @@ export function useJWT() {
     };
 
     const getAccess = () => {
-        return acsToken.access;
+        return acsToken;
     };
 
     const refreshAccess = async () => {

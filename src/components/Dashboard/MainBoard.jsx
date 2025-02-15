@@ -43,8 +43,8 @@ export function MainBoard() {
         },
         {
             id: 5,
-            title: "Block 5",
-            url: "/block1",
+            title: "Scheduler",
+            url: "fs/scheduler-main",
             content: "block5/preview",
             styles:{
                 gridArea: '1 / 5 / 11 / 9',
