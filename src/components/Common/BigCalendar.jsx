@@ -1,12 +1,19 @@
 import styles from './BigCalendar.module.css';
 import dayjs from "dayjs";
 import {useState} from "react";
+import {useJWT} from "../../hooks/useJWT.js";
+
 
 //TODO add parameter that decides if its preview or full calendar
 export function BigCalendar(){
     const [actualDate] = useState(dayjs());
     const [selectedDate, setSelectedDate] = useState(dayjs());
     const [addEventCard, setAddEventCard] = useState(false);
+    const {axiosInstance} = useJWT();
+
+    const getSchedulesData = () => {
+        axiosInstance.get('events/')
+    }
 
     const generateCalendar = () => {
         const daysInMonth = actualDate.daysInMonth();

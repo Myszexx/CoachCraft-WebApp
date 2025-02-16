@@ -7,6 +7,9 @@ export function AppProvider(props) {
     const [user, setUser] = useState(
         localStorage.getItem("user") ? localStorage.getItem("user")==="null" ? null : localStorage.getItem("user") : null
     );
+    const [teamId, setTeamId] = useState(
+        localStorage.getItem("teamId") ? localStorage.getItem("teamId")==="null" ? null : localStorage.getItem("teamId") : null
+    );
     const [userId, setUserId] = useState(
         localStorage.getItem("userId") ? localStorage.getItem("userId")==="null" ? null : localStorage.getItem("userId") : null
     );
@@ -14,7 +17,12 @@ export function AppProvider(props) {
 
     const [loginType, setLoginType] = useState(null);
 
-    const [acsToken, setAcsToken] = useState(null);
+    const [acsToken, setAcsToken] = useState({'access': null, 'refresh': null});
+
+    const setTeamIdState = (newTeamId) => {
+        setTeamId(newTeamId);
+        localStorage.setItem("teamId", newTeamId);
+    }
 
     const setUserState = (newUser) => {
         setUser(newUser);
@@ -31,6 +39,7 @@ export function AppProvider(props) {
             {
                 user, setUserState,
                 userId, setUserIdState,
+                teamId, setTeamIdState,
                 loginType, setLoginType,
                 acsToken, setAcsToken,
                 dashboardTitle, setDashboardTitle

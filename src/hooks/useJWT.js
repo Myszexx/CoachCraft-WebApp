@@ -79,29 +79,43 @@ export function useJWT() {
             Authorization: `Bearer ${JSON.parse(JSON.stringify(getAccess()))}`
         }
     });
-    axiosInstance.interceptors.request.use(async req => {
-
-
-        if (acsToken.access && typeof acsToken.access === "string")
-        {
-
+   axiosInstance.interceptors.request.use(async req => {
+        if (acsToken.access && typeof acsToken.access === "string") {
             const user = jwtDecode(acsToken.access);
-
             const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
-            if(!isExpired) return req
+            if (!isExpired) return req;
         }
 
         const response = await axios.post(`${baseURL}core/token/refresh/`, {
             refresh: rfrToken
         });
-        //localStorage.setItem('authTokens', JSON.stringify(response.data))
+        setAccessToken(response.data);
 
-        setAccessToken(response.data)
+        req.headers.Authorization = `Bearer ${response.data.access}`;
+        return req;
+    });
 
-        req.headers.Authorization = `Bearer ${response.data.access}`
-        return req
-    })
+    axiosInstance.interceptors.response.use(
+        response => response,
+        async error => {
+            const originalRequest = error.config;
+
+            if (error.response.status === 401 && !originalRequest._retry) {
+                originalRequest._retry = true;
+
+                const response = await axios.post(`${baseURL}core/token/refresh/`, {
+                    refresh: rfrToken
+                });
+                setAccessToken(response.data);
+
+                originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
+                return axiosInstance(originalRequest);
+            }
+
+            return Promise.reject(error);
+        }
+    );
 
     return {acsToken, setRefreshToken,setAccessToken, removeTokens, getAccess, refreshAccess, rfrToken, axiosInstance};
 }
