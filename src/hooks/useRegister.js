@@ -5,7 +5,7 @@ import {useAppContext} from "../context/AppContext.jsx";
 import {useJWT} from "./useJWT.js";
 
 export function useRegister() {
-    const { setUser, setUserId } = useAppContext();
+    const { setUserState, setUserIdState } = useAppContext();
     const { setAccessToken, setRefreshToken } = useJWT();
     // const [isSuccessful, setIsSuccessful] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -30,8 +30,8 @@ export function useRegister() {
                 const data = await res.json();
                 setAccessToken(data.token.rfr);
                 setRefreshToken(data.token.acc);
-                setUser(data.username);
-                setUserId(data.user_id);
+                setUserState(data.username);
+                setUserIdState(data.user_id);
                 redirect('/dashboard');
             } else {
                 const errorText = await res.text();

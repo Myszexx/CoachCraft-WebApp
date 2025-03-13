@@ -1,47 +1,85 @@
-import {Fragment, useState} from "react";
+import {useEffect, useState} from "react";
 import styles from './NinetyMinPicker.module.css';
+import {useJWT} from "../../../hooks/useJWT.js";
+import {useAlert} from "../../../hooks/useAlert.js";
 
 export function NinetyMinPicker() {
     const [isFetching, setIsFetching] = useState(false);
+    const {axiosInstance} = useJWT();
+    const {showAlert} = useAlert();
+    const [ZPNs, setZPNs] = useState([]);
+    const [leagues, setLeagues] = useState([]);
+    const [tables, setTables] = useState([]);
+    const [selectedPos, setSelectedPos] = useState({ZPNs: null, leagues: null});
+    const [lastChanged, setLastChanged] = useState(null);
     const fetchZPN = async () => {
         setIsFetching(true);
-        await new Promise((resolve) => setTimeout(resolve, 200));
-        setIsFetching(false);
+        let response = await axiosInstance.get("integrations/90mins/zpn");
+        console.log(response);
+        if (response.status === 200) {
+            setZPNs(response.data);
+            console.log(response.data);
+            setIsFetching(false);
+        }
+        else {
+            showAlert("Players not found", "error");
+        }
     }
-    const zpns = [
-        {value:"ZPN 1",key:1},
-        {value:"ZPN 2",key:2},
-        {value:"ZPN 3",key:3},
-        {value:"ZPN 4",key:4},
-        {value:"ZPN 5",key:5}
-    ];
-    const regions = [
-        {value:"Region 1",key:1},
-        {value:"Region 2",key:2},
-        {value:"Region 3",key:3},
-        {value:"Region 4",key:4},
-        {value:"Region 5",key:5}
-    ];
-    const leagues = [
-        {value:"League 1",key:1},
-        {value:"League 2",key:2},
-        {value:"League 3",key:3},
-        {value:"League 4",key:4},
-        {value:"League 5",key:5}
-    ];
-    const selects = [
-        {'fetchFunction':fetchZPN,'itemsList':zpns},
-        {'fetchFunction':fetchZPN,'itemsList':regions},
-        {'fetchFunction':fetchZPN,'itemsList':leagues}
-    ];
+    const fetchLeagues = async (ZPNValue) => {
+        setIsFetching(true);
+        let response = await axiosInstance.get("integrations/90mins/leagues",{params: {filter:ZPNValue}});
+        console.log(response);
+        if (response.status === 200) {
+            setLeagues(response.data);
+            console.log(response.data);
+            setIsFetching(false);
+        }
+        else {
+            showAlert("Players not found", "error");
+        }
+    }
+
+    const fetchTeams = async (leagueValue) => {
+        setIsFetching(true);
+        let response = await axiosInstance.get("integrations/90mins/tables",{params: {filter:leagueValue}});
+        console.log(response);
+        if (response.status === 200) {
+            setTables(response.data);
+            console.log(response.data);
+            setIsFetching(false);
+        }
+        else {
+            showAlert("Players not found", "error");
+        }
+    }
+
+    const setSelected = (key, value) => {
+        let changedSelect = selectedPos;
+        changedSelect[key] = value;
+        setSelectedPos(changedSelect);
+        setLastChanged(key);
+    }
+
+    useEffect(() => {
+        if (lastChanged == null) {
+            fetchZPN();
+        }
+        else if (lastChanged === 'ZPNs'){
+            fetchLeagues(selectedPos.ZPNs);
+        }
+        else if (lastChanged === 'leagues'){
+            fetchTeams(selectedPos.leagues);
+        }
+    }, [lastChanged]);
 
 
 
-    const generateSelect = (itemsList, fetchFunction = fetchZPN) => {
+
+    const generateSelect = (itemsList, key) => {
         return (
-            <select  className={styles.selector} onChange={(e) => fetchFunction(e.target.value)}>
-                {itemsList.map((item) => (
-                    <option key={item.key} value={item.key}>{item.value}</option>
+            <select  className={styles.selector} onChange={(e) => setSelected(key,e.target.value)}>
+                {itemsList.map((item,index) => (
+                    <option key={index} value={item.name}>{item.name}</option>
                 ))}
             </select>
         )
@@ -59,10 +97,10 @@ export function NinetyMinPicker() {
         <div>
             <h1>90min Picker</h1>
             <p>Choose team:</p>
-            {selects.map((select, index) => {
-                console.log(select);
-                return <Fragment key={index}> {generateSelect(select.itemsList, select.fetchFunction)}</Fragment>
-            })}
+
+            {generateSelect(ZPNs, 'ZPNs')}
+            {/*{generateSelect(regions,)}*/}
+            {generateSelect(leagues, 'leagues')}
             <button>Claim team</button>
         </div>
     )
