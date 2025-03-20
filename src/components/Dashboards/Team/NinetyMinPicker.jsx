@@ -12,6 +12,20 @@ export function NinetyMinPicker() {
     const [tables, setTables] = useState([]);
     const [selectedPos, setSelectedPos] = useState({ZPNs: null, leagues: null});
     const [lastChanged, setLastChanged] = useState(null);
+
+
+    const normalizeTables = (data) => {
+        let res = []
+        for (let i = 0; i < data.length; i++) {
+            let item = {...data[i]};
+            item['name'] = item['team_name'];
+            item['value'] = item['team_url'];
+            delete item['team_name'];
+            delete item['team_url'];
+            res.push(item);
+        }
+        setTables(res);
+    }
     const fetchZPN = async () => {
         setIsFetching(true);
         let response = await axiosInstance.get("integrations/90mins/zpn");
@@ -38,13 +52,12 @@ export function NinetyMinPicker() {
             showAlert("Players not found", "error");
         }
     }
-
     const fetchTeams = async (leagueValue) => {
         setIsFetching(true);
         let response = await axiosInstance.get("integrations/90mins/tables",{params: {filter:leagueValue}});
         console.log(response);
         if (response.status === 200) {
-            setTables(response.data);
+            normalizeTables(response.data);
             console.log(response.data);
             setIsFetching(false);
         }
@@ -70,7 +83,7 @@ export function NinetyMinPicker() {
         else if (lastChanged === 'leagues'){
             fetchTeams(selectedPos.leagues);
         }
-    }, [lastChanged]);
+    }, [lastChanged, selectedPos]);
 
 
 
@@ -101,6 +114,7 @@ export function NinetyMinPicker() {
             {generateSelect(ZPNs, 'ZPNs')}
             {/*{generateSelect(regions,)}*/}
             {generateSelect(leagues, 'leagues')}
+            {generateSelect(tables, 'tables')}
             <button>Claim team</button>
         </div>
     )
