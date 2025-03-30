@@ -28,8 +28,8 @@ export function useRegister() {
 
             if (res.status === 201) {
                 const data = await res.json();
-                setAccessToken(data.token.rfr);
-                setRefreshToken(data.token.acc);
+                setAccessToken(data.token.acc);
+                setRefreshToken(data.token.rfr);
                 setUserState(data.username);
                 setUserIdState(data.user_id);
                 redirect('/dashboard');

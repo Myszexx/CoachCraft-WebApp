@@ -103,16 +103,20 @@ export function useJWT() {
 
             if (error.response.status === 401 && !originalRequest._retry) {
                 originalRequest._retry = true;
+                try {
+                    const response = await axios.post(`${baseURL}core/token/refresh/`, {
+                        refresh: rfrToken
+                    });
+                    setAccessToken(response.data);
 
-                const response = await axios.post(`${baseURL}core/token/refresh/`, {
-                    refresh: rfrToken
-                });
-                setAccessToken(response.data);
-
-                originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
-                return axiosInstance(originalRequest);
+                    originalRequest.headers.Authorization = `Bearer ${response.data.access}`;
+                    return axiosInstance(originalRequest);
+                }
+                catch (error) {
+                    logout();
+                    return Promise.reject(error);
+                }
             }
-
             return Promise.reject(error);
         }
     );
